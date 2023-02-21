@@ -1,0 +1,34 @@
+version: '3'
+networks:
+  devops:
+    driver: bridge
+services:
+  jenkins:
+    image: 'jenkinsci/blueocean:latest'
+    user: "root"
+    ports:
+      - '8085:8080'
+    volumes:
+      - './jenkins_data:/var/jenkins_home'
+      - '/var/run/docker.sock:/var/run/docker.sock'
+      - './:/home'
+    networks:
+      - devops
+  nexus:
+    image: 'sonatype/nexus3'
+    ports:
+      - '8081:8081'
+    volumes:
+      - './nexus_data:/nexus_data sonatype/nexus3'
+    networks:
+      - devops
+  sonarqube:
+    image: 'sonarqube:alpine'
+    ports:
+      - '9000:9000'
+    volumes:
+      - './sonarqube/conf:/opt/sonarqube/conf'
+      - './sonarqube/data:/opt/sonarqube/data'
+      - './sonarqube/extensions:/opt/sonarqube/extensions'
+    networks:
+      - devops

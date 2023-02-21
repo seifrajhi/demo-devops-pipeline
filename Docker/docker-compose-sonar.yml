@@ -1,0 +1,15 @@
+version: '3'
+networks:
+  devops:
+    driver: bridge
+services:
+  sonarqube:
+    image: 'sonarqube:alpine'
+    ports:
+      - '9000:9000'
+    volumes:
+      - './sonarqube/conf:/opt/sonarqube/conf'
+      - './sonarqube/data:/opt/sonarqube/data'
+      - './sonarqube/extensions:/opt/sonarqube/extensions'
+    networks:
+      - devops

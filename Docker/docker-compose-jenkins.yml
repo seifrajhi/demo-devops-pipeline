@@ -1,0 +1,16 @@
+version: '3'
+networks:
+  devops:
+    driver: bridge
+services:
+  jenkins:
+    image: 'jenkinsci/blueocean:latest'
+    user: "root"
+    ports:
+      - '8085:8080'
+    volumes:
+      - './jenkins_data:/var/jenkins_home'
+      - '/var/run/docker.sock:/var/run/docker.sock'
+      - './:/home'
+    networks:
+      - devops

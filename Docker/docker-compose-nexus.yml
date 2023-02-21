@@ -1,0 +1,14 @@
+version: '3'
+networks:
+  devops:
+    driver: bridge
+services:
+  nexus:
+    image: 'sonatype/nexus3'
+    user: "root"
+    ports:
+      - 10680:8081
+    volumes:
+      - './nexus_data:/nexus-data'
+    networks:
+      - devops
